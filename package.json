@@ -10,17 +10,17 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
-    "daisyui": "^5.1.25",
+    "daisyui": "^5.1.26",
     "nodemon": "^3.1.10"
   },
   "scripts": {
     "start": "nodemon src/index.ts",
     "build": "tsc",
-    "serve": "node dist/index.js"
+    "serve": "node dist/index.ts"
   },
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "author": "",
   "license": "ISC",
   "description": ""
