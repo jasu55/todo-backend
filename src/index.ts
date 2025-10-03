@@ -29,8 +29,16 @@ function saveTasksToFile(
 
 app.get("/tasks", (req: Request, res: Response) => {
   // fetch database products
+  const { status } = req.query;
   const tasks = loadTasksFromFile();
-  res.send(tasks);
+
+  const filteredTasks = tasks.filter((task: { isChecked: boolean }) => {
+    if (status === "all") return true;
+    if (status === "active") return task.isChecked === false;
+    if (status === "completed") return task.isChecked === true;
+    return true;
+  });
+  res.send(filteredTasks);
 });
 
 app.post("/tasks", (req: Request, res: Response) => {
@@ -58,6 +66,19 @@ app.delete("/tasks/:id", (req: Request, res: Response) => {
   const newTasks = tasks.filter((task: { id: string }) => task.id !== id);
   saveTasksToFile(newTasks);
   res.sendStatus(204); // No Content
+});
+
+app.delete("/deleteAll", (req: Request, res: Response) => {
+  console.log("DELETING ALL COMPLETES");
+  // delete a product from database
+  const tasks = loadTasksFromFile();
+  const newTasks = tasks.filter(
+    (task: { isChecked: boolean }) => task.isChecked == false
+  );
+
+  console.log("DELETING ALL COMPLETES", newTasks);
+  saveTasksToFile(newTasks);
+  res.sendStatus(204);
 });
 
 app.put("/tasks/:id", (req, res) => {
