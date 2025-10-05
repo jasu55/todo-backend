@@ -16,7 +16,7 @@ function loadTasksFromFile() {
 }
 
 function saveTasksToFile(
-  tasks: { id: string; name: string; isChecked: boolean }[]
+  tasks: { id: string, name: string, isChecked: boolean }[]
 ) {
   fs.writeFile("data.txt", JSON.stringify(tasks), (err) => {
     if (err) {
